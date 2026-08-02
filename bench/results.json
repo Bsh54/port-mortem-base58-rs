@@ -100,5 +100,11 @@
   "startup": {
     "rust_ns": 20172000,
     "go_ns": 35866800
+  },
+  "rss": {
+    "workload": "bench encode 256 500000",
+    "method": "Windows peak working set (PeakWorkingSet64), sampled during the run",
+    "rust_kb": 343672,
+    "go_kb": 528096
   }
 }

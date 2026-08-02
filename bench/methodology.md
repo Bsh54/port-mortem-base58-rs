@@ -36,18 +36,28 @@ absolute values will differ elsewhere, but the Rust-vs-Go **ratio** is the point
 
 ## RSS
 
-Peak resident set is measured separately, because reading a process's own peak
-working set portably would pull in a dependency and this crate ships zero
-dependencies. On Windows:
+Peak resident set is measured externally on an identical workload
+(`bench encode 256 500000`), because reading a process's own peak working set
+portably would pull in a dependency and this crate ships zero dependencies.
+
+Measured (Windows peak working set, sampled during the run): **Rust 343,672 KB
+vs Go 528,096 KB**. The absolute figures include the pre-generated 500k-item
+dataset that both implementations build identically, so the delta reflects
+per-value overhead and GC headroom (Go) versus compact `Vec`/`String` (Rust),
+not codec scratch alone — but it is an apples-to-apples comparison.
+
+Reproduce on Windows (sample while alive, since `PeakWorkingSet64` reads 0 after
+exit):
 
 ```
-$p = Start-Process target/release/base58 -ArgumentList 'bench','encode','256','200000' -PassThru -Wait
-$p.PeakWorkingSet64
+$p = Start-Process target/release/base58 -ArgumentList 'bench','encode','256','500000' -PassThru
+while (-not $p.HasExited) { $p.Refresh(); $peak = $p.PeakWorkingSet64; Start-Sleep -Milliseconds 50 }
+$peak / 1KB
 ```
 
-On Linux: `/usr/bin/time -v target/release/base58 bench encode 256 200000` and
-read `Maximum resident set size`. Report both implementations with the same
-command.
+On Linux: `/usr/bin/time -v target/release/base58 bench encode 256 500000` and
+read `Maximum resident set size` (the `peak_rss_kb` helper in `run.py` does this
+automatically when `/usr/bin/time` is present).
 
 ## Honesty notes
 
