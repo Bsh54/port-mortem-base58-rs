@@ -1,0 +1,4 @@
+differential fuzz: rust=target\release\base58.exe go=oracle-go\oracle.exe
+seed=2 batch=2000 target_seconds=60
+---
+rounds=105 comparisons=630000 divergences=0 elapsed=60.0s
