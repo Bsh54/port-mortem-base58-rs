@@ -31,6 +31,20 @@ def startup_ns(binary, reps=15):
     return best
 
 
+def peak_rss_kb(binary, op, size, iters):
+    """Peak resident set size in KB via /usr/bin/time -v (Linux only)."""
+    if not os.path.exists("/usr/bin/time"):
+        return None
+    proc = subprocess.run(
+        ["/usr/bin/time", "-v", binary, "bench", op, str(size), str(iters)],
+        stdout=subprocess.DEVNULL, stderr=subprocess.PIPE,
+    )
+    for line in proc.stderr.decode(errors="ignore").splitlines():
+        if "Maximum resident set size" in line:
+            return int(line.split(":")[1].strip())
+    return None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--rust", required=True)
