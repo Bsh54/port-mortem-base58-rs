@@ -1,0 +1,15 @@
+[package]
+name = "b58bridge"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "C-ABI shim exposing the base58 port to the original Go test suite via cgo. Test scaffolding only; not part of the port."
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+base58 = { path = ".." }
+
+[profile.release]
+opt-level = 3
