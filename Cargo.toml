@@ -5,9 +5,9 @@ edition = "2021"
 rust-version = "1.80"
 description = "Fast, allocation-conscious Base58 codec. Behavioral port of mr-tron/base58 (Go)."
 license = "MIT"
-repository = "https://github.com/mr-tron/base58"
+repository = "https://github.com/Bsh54/port-mortem-base58-rs"
 keywords = ["base58", "bitcoin", "encoding", "codec"]
-categories = ["encoding", "no-std::no-alloc"]
+categories = ["encoding"]
 
 [[bin]]
 name = "base58"
