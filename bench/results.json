@@ -1,0 +1,104 @@
+{
+  "latency": [
+    {
+      "op": "encode",
+      "size": 32,
+      "rust": {
+        "impl": "rust",
+        "op": "encode",
+        "size": 32,
+        "iters": 50000,
+        "p50_ns": 2000,
+        "p99_ns": 2700,
+        "mean_ns": 2077.3,
+        "ops_per_sec": 426869
+      },
+      "go": {
+        "impl": "go",
+        "op": "encode",
+        "size": 32,
+        "iters": 50000,
+        "p50_ns": 0,
+        "p99_ns": 0,
+        "mean_ns": 1479.4,
+        "ops_per_sec": 673529
+      }
+    },
+    {
+      "op": "encode",
+      "size": 256,
+      "rust": {
+        "impl": "rust",
+        "op": "encode",
+        "size": 256,
+        "iters": 50000,
+        "p50_ns": 32800,
+        "p99_ns": 100900,
+        "mean_ns": 38721.8,
+        "ops_per_sec": 25574
+      },
+      "go": {
+        "impl": "go",
+        "op": "encode",
+        "size": 256,
+        "iters": 50000,
+        "p50_ns": 0,
+        "p99_ns": 0,
+        "mean_ns": 72508.8,
+        "ops_per_sec": 13629
+      }
+    },
+    {
+      "op": "decode",
+      "size": 32,
+      "rust": {
+        "impl": "rust",
+        "op": "decode",
+        "size": 32,
+        "iters": 50000,
+        "p50_ns": 900,
+        "p99_ns": 1600,
+        "mean_ns": 1536.1,
+        "ops_per_sec": 550257
+      },
+      "go": {
+        "impl": "go",
+        "op": "decode",
+        "size": 32,
+        "iters": 50000,
+        "p50_ns": 0,
+        "p99_ns": 0,
+        "mean_ns": 1825.4,
+        "ops_per_sec": 547838
+      }
+    },
+    {
+      "op": "decode",
+      "size": 256,
+      "rust": {
+        "impl": "rust",
+        "op": "decode",
+        "size": 256,
+        "iters": 50000,
+        "p50_ns": 5300,
+        "p99_ns": 6300,
+        "mean_ns": 6147.9,
+        "ops_per_sec": 156007
+      },
+      "go": {
+        "impl": "go",
+        "op": "decode",
+        "size": 256,
+        "iters": 50000,
+        "p50_ns": 0,
+        "p99_ns": 0,
+        "mean_ns": 22668.4,
+        "ops_per_sec": 44051
+      }
+    }
+  ],
+  "startup": {
+    "rust_ns": 20172000,
+    "go_ns": 35866800
+  }
+}
