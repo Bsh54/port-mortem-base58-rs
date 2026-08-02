@@ -24,7 +24,10 @@ fn known_vectors() {
         ("61", "2g"),
         ("626262", "a3gV"),
         ("636363", "aPEr"),
-        ("73696d706c792061206c6f6e6720737472696e67", "2cFupjhnEsSn59qHXstmK2ffpLv2"),
+        (
+            "73696d706c792061206c6f6e6720737472696e67",
+            "2cFupjhnEsSn59qHXstmK2ffpLv2",
+        ),
         ("516b6fcd0f", "ABnLTmg"),
         ("bf4f89001e670274dd", "3SEo3LWLoPntC"),
         ("572e4794", "3EFU7m"),
@@ -108,7 +111,8 @@ fn fast_matches_trivial_on_boundary_payloads() {
         for length in lengths {
             for zero_count in zero_counts {
                 let mut payload = vec![0u8; zero_count];
-                payload.extend((0..length).map(|i: usize| ((i * 37 + length * 17) % 251 + 1) as u8));
+                payload
+                    .extend((0..length).map(|i: usize| ((i * 37 + length * 17) % 251 + 1) as u8));
 
                 let fast = encode_alphabet(&payload, alphabet);
                 let trivial = trivial_encode_alphabet(&payload, alphabet);
@@ -148,8 +152,14 @@ fn decode_rejects_malformed_inputs() {
 
 #[test]
 fn error_messages_contain_expected_substrings() {
-    assert!(decode("").unwrap_err().to_string().contains("zero length string"));
-    assert!(decode("0").unwrap_err().to_string().contains("invalid base58 digit"));
+    assert!(decode("")
+        .unwrap_err()
+        .to_string()
+        .contains("zero length string"));
+    assert!(decode("0")
+        .unwrap_err()
+        .to_string()
+        .contains("invalid base58 digit"));
     assert!(decode([0x80])
         .unwrap_err()
         .to_string()

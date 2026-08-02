@@ -20,7 +20,10 @@ pub fn decode(input: impl AsRef<[u8]>) -> Result<Vec<u8>, DecodeError> {
     fast::decode(input.as_ref(), &BTC_ALPHABET)
 }
 
-pub fn decode_alphabet(input: impl AsRef<[u8]>, alphabet: &Alphabet) -> Result<Vec<u8>, DecodeError> {
+pub fn decode_alphabet(
+    input: impl AsRef<[u8]>,
+    alphabet: &Alphabet,
+) -> Result<Vec<u8>, DecodeError> {
     fast::decode(input.as_ref(), alphabet)
 }
 
@@ -36,7 +39,10 @@ pub fn fast_decode(input: impl AsRef<[u8]>) -> Result<Vec<u8>, DecodeError> {
     fast::decode(input.as_ref(), &BTC_ALPHABET)
 }
 
-pub fn fast_decode_alphabet(input: impl AsRef<[u8]>, alphabet: &Alphabet) -> Result<Vec<u8>, DecodeError> {
+pub fn fast_decode_alphabet(
+    input: impl AsRef<[u8]>,
+    alphabet: &Alphabet,
+) -> Result<Vec<u8>, DecodeError> {
     fast::decode(input.as_ref(), alphabet)
 }
 
@@ -52,6 +58,9 @@ pub fn trivial_decode(input: impl AsRef<[u8]>) -> Result<Vec<u8>, DecodeError> {
     trivial::decode(input.as_ref(), &BTC_ALPHABET)
 }
 
-pub fn trivial_decode_alphabet(input: impl AsRef<[u8]>, alphabet: &Alphabet) -> Result<Vec<u8>, DecodeError> {
+pub fn trivial_decode_alphabet(
+    input: impl AsRef<[u8]>,
+    alphabet: &Alphabet,
+) -> Result<Vec<u8>, DecodeError> {
     trivial::decode(input.as_ref(), alphabet)
 }

@@ -38,7 +38,11 @@ impl fmt::Display for AlphabetError {
                 write!(f, "alphabet contains a non-ascii byte (0x{b:02x})")
             }
             AlphabetError::Duplicate(b) => {
-                write!(f, "alphabet contains a duplicate character ({:?})", *b as char)
+                write!(
+                    f,
+                    "alphabet contains a duplicate character ({:?})",
+                    *b as char
+                )
             }
         }
     }
