@@ -7,12 +7,16 @@ target_language = "Rust"
 [original_tests]
 location = "tests/original"
 hashes_file = "tests/original/HASHES.txt"
+bridge = "bridge/"
+bridge_log = "bridge/original-tests.log"
 note = """
-The original Go test suite reaches into unexported package internals
-(mulAddBase58WordsLE, base58ChunkPowers, Alphabet.encode) and cannot be linked
-against a non-Go port. The files are preserved unmodified with their SHA-256
-digests and were translated 1:1 into tests/parity.rs. Behavioral equivalence
-against the published library is proven separately by fuzz/differential.py.
+The original Go test files run unmodified against the Rust port through a cgo
+shim (bridge/): TestBase58_test2, TestInvalidAlphabet* and the fast-vs-trivial
+equivalence sweep all pass against the Rust implementation. The two tests that
+bind to Go package internals (mulAddBase58WordsLE; the unexported Alphabet.encode
+field) cannot cross the FFI boundary and are mirrored by the src/fast.rs unit
+test and tests/parity.rs. Behavioral equivalence against the published library is
+additionally proven by fuzz/differential.py.
 """
 
 [bonuses]

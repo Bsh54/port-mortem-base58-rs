@@ -63,9 +63,22 @@ known vectors, real BTC addresses, leading-zero preservation across chunk bounda
 `fast == trivial` on boundary payloads, malformed-input rejection, and alphabet
 validation. The unmodified original Go tests are kept under
 [`tests/original/`](tests/original) with their kickoff hashes in
-[`tests/original/HASHES.txt`](tests/original/HASHES.txt); they run against the Go oracle
-(see below) and were translated 1:1 into `tests/parity.rs` because they reach into Go
-package internals that a non-Go port cannot link against.
+[`tests/original/HASHES.txt`](tests/original/HASHES.txt).
+
+### The original suite runs against the port
+
+Beyond the translation, the **original Go test files run unmodified against the Rust
+port** through a thin cgo shim — see [`bridge/`](bridge) and
+[`bridge/original-tests.log`](bridge/original-tests.log):
+
+```
+pwsh bridge/run-original-tests.ps1
+# ok  b58bridgetest  (TestBase58_test2, TestInvalidAlphabet*, TestFastEqTrivialEncodingAndDecoding)
+```
+
+The two upstream tests that bind to Go package internals (`mulAddBase58WordsLE`, the
+unexported `Alphabet.encode` field) can't cross the FFI boundary and are covered by the
+`src/fast.rs` unit test and `tests/parity.rs` respectively.
 
 ## Differential equivalence vs the Go original
 

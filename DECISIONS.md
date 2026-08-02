@@ -80,6 +80,16 @@ in range without bounds tricks.
 `usize::div_ceil` and `u64::leading_zeros` replace the original's `(x+7)/8` and
 `bits.Len64`. Identical results, clearer intent, and no hand-rolled edge cases.
 
+## 12b. Original test suite bridged over FFI, with `unsafe` isolated
+
+To verify the port against the *actual* upstream tests (not only the translation),
+the original Go test files run unmodified against the Rust code through a cgo shim
+(`bridge/`). The C-ABI glue necessarily uses raw pointers, so it lives in a
+**separate `b58bridge` crate** rather than the port: the port keeps
+`#![forbid(unsafe_code)]`, and all `unsafe` is confined to test scaffolding. Two
+upstream tests bind to Go package internals and cannot cross the FFI boundary; they
+are mirrored by a Rust unit test and by `tests/parity.rs`.
+
 ## 12. Line-oriented CLI for cheap differential testing
 
 The binary reads one item per line and writes one result per line, so the differential
