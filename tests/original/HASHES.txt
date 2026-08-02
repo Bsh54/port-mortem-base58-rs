@@ -1,0 +1,3 @@
+1b4e94942161eef53f7fbb90410f5e2c7beb4d4204a61aeacfdef68b5aeb5417 *base58_2_test.go
+9fe7b3b8e66aa246e4afb2addb732cebc312d970de844dd0934eaddfd3b2d7d5 *base58_test.go
+685647e3a83de9afeef8d393e53cf6be1925f3e3fa97ef532651422497767e86 *hardening_test.go
