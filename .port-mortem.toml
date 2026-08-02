@@ -1,0 +1,21 @@
+track = "E"
+pair = "Go -> Rust"
+source_repo = "https://github.com/mr-tron/base58"
+source_language = "Go"
+target_language = "Rust"
+
+[original_tests]
+location = "tests/original"
+hashes_file = "tests/original/HASHES.txt"
+note = """
+The original Go test suite reaches into unexported package internals
+(mulAddBase58WordsLE, base58ChunkPowers, Alphabet.encode) and cannot be linked
+against a non-Go port. The files are preserved unmodified with their SHA-256
+digests and were translated 1:1 into tests/parity.rs. Behavioral equivalence
+against the published library is proven separately by fuzz/differential.py.
+"""
+
+[bonuses]
+zero_unsafe = "enforced crate-wide via #![forbid(unsafe_code)]"
+differential_fuzz = "fuzz/differential.py, log at fuzz/log.txt"
+decision_log = "DECISIONS.md (12 documented divergences)"
