@@ -1,0 +1,26 @@
+Original mr-tron/base58 Go test files (unmodified, sha256 in tests/original/HASHES.txt)
+run against the Rust port through the cgo shim (bridge/gotests/base58.go -> b58bridge.dll).
+
+$ go test -v -count=1 .
+
+=== RUN   TestBase58_test2
+--- PASS: TestBase58_test2 (0.00s)
+=== RUN   TestInvalidAlphabetTooShort
+--- PASS: TestInvalidAlphabetTooShort (0.00s)
+=== RUN   TestInvalidAlphabetTooLong
+--- PASS: TestInvalidAlphabetTooLong (0.00s)
+=== RUN   TestInvalidAlphabetNon127
+--- PASS: TestInvalidAlphabetNon127 (0.00s)
+=== RUN   TestInvalidAlphabetDup
+--- PASS: TestInvalidAlphabetDup (0.00s)
+=== RUN   TestFastEqTrivialEncodingAndDecoding
+--- PASS: TestFastEqTrivialEncodingAndDecoding (43.03s)
+PASS
+ok  	b58bridgetest	45.229s
+
+Note: TestFastEqTrivialEncodingAndDecoding exercises 12 alphabets x 255 lengths x
+100 iterations, comparing the fast and trivial paths and their round-trips -- all
+routed through the Rust implementation. The two tests that require Go package
+internals (hardening_test.go's TestMulAddBase58WordsLEMatchesBigInt, and the
+leading-zero test that reads the unexported Alphabet.encode field) are covered by
+the translated Rust suite (tests/parity.rs) and the fast.rs unit test instead.
