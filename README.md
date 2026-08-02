@@ -1,5 +1,7 @@
 # base58 (Rust) — a behavioral port of `mr-tron/base58`
 
+[![CI](https://github.com/Bsh54/port-mortem-base58-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/Bsh54/port-mortem-base58-rs/actions/workflows/ci.yml)
+
 Port Mortem · Track E (Go → Rust)
 
 A fast, dependency-free, `#![forbid(unsafe_code)]` Base58 codec that reproduces the
@@ -24,6 +26,13 @@ other) while dropping every escape hatch: no `unsafe`, no external crates, one b
 The interesting claim is not "it compiles" but "it behaves": see
 [`DECISIONS.md`](DECISIONS.md) for every divergence and [`fuzz/`](fuzz) for the
 differential proof against the real Go binary.
+
+## Safety
+
+`unsafe` blocks in the port (`src/`): **0**, enforced at compile time by
+`#![forbid(unsafe_code)]`. The only `unsafe` in the repository lives in the
+test-only `b58bridge` crate (the cgo FFI shim, 9 blocks), which is not part of the
+shipped library or binary.
 
 ## Build (one command)
 
