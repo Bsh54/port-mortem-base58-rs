@@ -3,3 +3,6 @@
 # Go oracle build artifact
 oracle-go/oracle
 oracle-go/oracle.exe
+
+# Bridge crate build output
+bridge/target
