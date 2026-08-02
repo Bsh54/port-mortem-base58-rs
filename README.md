@@ -96,11 +96,16 @@ Throughput on an Intel Pentium N3530 (higher is better), 50k iterations:
 
 Cold start (min of 15): **Rust ~20 ms vs Go ~36 ms**.
 
+Peak memory (RSS) on an identical `encode 256 × 500k` workload, sampled via the
+Windows peak working set: **Rust ~336 MB vs Go ~516 MB** — the port holds ~35 %
+less resident memory, the classic no-GC footprint difference.
+
 Honest read: Go's optimized chunked path wins on tiny (32-byte) encodes; the port
-pulls ahead as inputs grow and on decode, and starts faster. Go's per-call
+pulls ahead as inputs grow, on decode, on startup, and on memory. Go's per-call
 p50/p99 read as `0 ns` here because of Windows timer granularity — see the
-methodology note; throughput (aggregate wall time) is the fair cross-language
-comparison on this platform.
+methodology note; throughput (aggregate wall time) and RSS are the fair
+cross-language comparisons on this platform, and a Linux run would additionally
+give a trustworthy Go p99.
 
 ## License
 
